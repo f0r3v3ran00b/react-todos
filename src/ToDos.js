@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class ToDos extends Component {
     constructor(props) {
         super(props);
@@ -24,42 +25,46 @@ class ToDos extends Component {
     }
 
     handleToDoClick = (id, event) => {
-        console.log(`ID of item checked is: ${id}`)
+        let clonedToDos = JSON.parse(JSON.stringify(this.state.todos));
         // Get the object that was checked
         let selectedToDo = this.state.todos.find((todo) => {
             return todo.id === id
         })
-        console.log('selected todo old state: ' + JSON.stringify(selectedToDo))
         selectedToDo.state = !selectedToDo.state
-        console.log('selected todo new state: ' + JSON.stringify(selectedToDo))
 
-        let filteredToDos = this.state.todos.filter((todo) => {
-            return todo.id != id
+        clonedToDos.map((clonedToDo) => {
+            if(clonedToDo.id == id) {
+                clonedToDo.state = !clonedToDo.state
+            }
         })
-        console.log('remaining list: ' + JSON.stringify(filteredToDos))
-
-        filteredToDos.push(selectedToDo)
-        console.log('new list: ' + JSON.stringify(filteredToDos))
 
         this.setState({
-            todos: filteredToDos
+            todos: clonedToDos
         })
 
     }
 
     render() {
         return (
-            this.state.todos.map((todo) => {
-                return (
-                    <div>
-                        <input checked={todo.state?'checked':''} type='checkbox'  className='form-check-input' id='exampleCheck1'
-                        onClick={(e) => this.handleToDoClick(todo.id)}
-                        />
-                        <span className={todo.state?'checked':''}>{todo.description}</span>
+            <div >
+                <h1 className='todo-header'>React Todos!!!</h1>
+                <div className='todo-list'>
+                {
+                    this.state.todos.map((todo) => {
+                        return (
+                            <div>
 
-                    </div>
-                )
-            })
+                                <input checked={todo.state?'checked':''} type='checkbox'  className='form-check-input' id='exampleCheck1'
+                                       onClick={(e) => this.handleToDoClick(todo.id)}
+                                />
+                                <span className={todo.state?'todo-description checked':'todo-description'}>{todo.description}</span>
+
+                            </div>
+                        )
+                    })
+                }
+                </div>
+            </div>
         )
     }
 
