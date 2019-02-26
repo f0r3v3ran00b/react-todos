@@ -13,12 +13,12 @@ class ToDos extends Component {
             {
                 id: 2,
                 state: true,
-                description: 'Fall in love'
+                description: 'Drink water'
             },
             {
                 id: 3,
                 state: true,
-                description: 'Live life'
+                description: 'Watch Captain Marvel'
             }]
         }
 
@@ -33,7 +33,7 @@ class ToDos extends Component {
         selectedToDo.state = !selectedToDo.state
 
         clonedToDos.map((clonedToDo) => {
-            if(clonedToDo.id == id) {
+            if (clonedToDo.id == id) {
                 clonedToDo.state = !clonedToDo.state
             }
         })
@@ -49,20 +49,20 @@ class ToDos extends Component {
             <div >
                 <h1 className='todo-header'>React Todos!!!</h1>
                 <div className='todo-list'>
-                {
-                    this.state.todos.map((todo) => {
-                        return (
-                            <div>
+                    {
+                        this.state.todos.map((todo) => {
+                            return (
+                                <div>
 
-                                <input checked={todo.state?'checked':''} type='checkbox'  className='form-check-input' id='exampleCheck1'
-                                       onClick={(e) => this.handleToDoClick(todo.id)}
-                                />
-                                <span className={todo.state?'todo-description checked':'todo-description'}>{todo.description}</span>
+                                    <input checked={todo.state ? 'checked' : ''} type='checkbox' className='todo-checkbox'
+                                        onClick={(e) => this.handleToDoClick(todo.id)}
+                                    />
+                                    <span className={todo.state ? 'todo-description checked' : 'todo-description'}>{todo.description}</span>
 
-                            </div>
-                        )
-                    })
-                }
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
         )
