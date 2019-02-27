@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import ToDoInput from "./ToDoInput";
+import uuid from "uuid";
 
 class ToDos extends Component {
     constructor(props) {
@@ -19,9 +20,26 @@ class ToDos extends Component {
                 id: 3,
                 state: true,
                 description: 'Watch Captain Marvel'
-            }]
+            }],
+            currentInput: ''
         }
 
+    }
+
+    handleToDoSubmit = (newToDo, event) => {
+
+        let newToDos = this.state.todos.concat({
+            id: uuid.v4(),
+            description: newToDo,
+            state: false
+        })
+        this.setState({
+
+        })
+    }
+
+    handleOnChangeToInput = (e) => {
+        this.state.currentInput = e.target.value
     }
 
     handleToDoClick = (id, event) => {
@@ -48,6 +66,9 @@ class ToDos extends Component {
         return (
             <div >
                 <h1 className='todo-header'>React Todos!!!</h1>
+                <hr/>
+                <ToDoInput handleOnChangeToInput={this.handleOnChangeToInput}/>
+                <hr/>
                 <div className='todo-list'>
                     {
                         this.state.todos.map((todo) => {
